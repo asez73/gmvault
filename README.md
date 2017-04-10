@@ -1,8 +1,11 @@
-# Gmvault: Backup and restore your gmail account
+# Gmvault: Sync / Backup and restore your gmail account
 
 
 
-Gmvault is a tool for backing up your gmail account and never lose email correspondence.
+Gmvault is a tool for synchronising / backing up your gmail account.
+However, synchronising might imply losing email correspondence. If you delete your gmail original email while or after having synchronised, your local copy will be deleted too immediatly or at the next synchronisation.
+In order to not lose any correspondance, you should explicitely use the -c no option.
+
 Gmvault is open source and under GNU-AGPL-3.0.
 
 For further info go [gmvault.org] (http://gmvault.org)
@@ -61,7 +64,9 @@ $>gmvault sync foo.bar@gmail.com
 With the --passwd option, you can use your gmail login and password for a quick test or if you cannot use XOAuth. 
 You will then enter an interactive session to enter your password. By default your password is not saved, but you can use the option to do it. Your password will be stored encrypted but please avoid using this option if possible.
 
-### Backup your emails
+### Sync your emails
+
+Warning, synchronising might delete some emails from your local copy. See the option "-c no" to make sure that your local copy will not be deleted.
 
 Full sync:
 
@@ -71,7 +76,7 @@ Incremental sync:
 
 $>gmvault sync -t quick foo.bar@gmail.com
 
-Emails are backed up in $HOME/gmvault-db (or %HOME%/gmvault-db for Win) by default. Use -d DB_DIR, --db-dir DB_DIR to change the location of your local email repository
+Emails are synchronised up in $HOME/gmvault-db (or %HOME%/gmvault-db for Win) by default. Use -d DB_DIR, --db-dir DB_DIR to change the location of your local email repository
 
 ### Restore your emails in a Gmail account
 
