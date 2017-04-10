@@ -236,7 +236,7 @@ class GMVaultLauncher(object):
         sync_parser.add_argument("-c", "--check-db", metavar = "VAL", \
                           help="enable/disable the removal from the gmvault db of the emails "\
                                "that have been deleted from the given gmail account. VAL = yes or no.",\
-                          dest="db_cleaning", default=None)
+                          dest="db_cleaning", default="no")
         
         sync_parser.add_argument("-m", "--multiple-db-owner", \
                                  help="Allow the email database to be synchronized with emails from multiple accounts.",\
@@ -507,9 +507,9 @@ class GMVaultLauncher(object):
         
             # add db-cleaning
             # if request passed put it False unless it has been forced by the user
-            # default is True (db-cleaning done)
+            # default is False (NO db-cleaning done)
             #default 
-            parsed_args['db-cleaning'] = True
+            parsed_args['db-cleaning'] = False
             
             # if there is a value then it is forced
             if options.db_cleaning: 
@@ -520,7 +520,7 @@ class GMVaultLauncher(object):
             #    parsed_args['db-cleaning'] = False
                 
             if parsed_args['db-cleaning']:
-                LOG.critical("Activate Gmvault db cleaning.")
+                LOG.critical("Activate Gmvault db cleaning. WARNING local copies might get removed is original gmail were removed!!!")
             else:
                 LOG.critical("Disable deletion of emails that are in Gmvault db and not anymore in Gmail.")
                 
@@ -728,7 +728,7 @@ class GMVaultLauncher(object):
         checker = gmvault.GMVaulter(args['db-dir'], args['host'], args['port'], \
                                    args['email'], credential, read_only_access = True)
         
-        checker.check_clean_db(db_cleaning = True)
+        checker.check_clean_db(db_cleaning = False)
             
 
     def run(self, args): #pylint:disable=R0912
